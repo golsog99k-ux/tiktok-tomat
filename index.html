@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍅 TikTok Tomat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; font-family: Arial, sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .phone { width: 100%; max-width: 400px; height: 100vh; background: #000; position: relative; overflow: hidden; }
+        .video-container { width: 100%; height: calc(100% - 60px); overflow-y: scroll; scroll-snap-type: y mandatory; padding-top: 10px; }
+        .video-slide { width: 100%; min-height: calc(100vh - 70px); scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0a0a0a; border-bottom: 1px solid #222; padding: 15px; }
+        .video-content { text-align: center; color: white; padding: 20px; }
+        .emoji-big { font-size: 80px; display: block; animation: float 3s infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        h2 { color: #ff4444; margin: 15px 0; }
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 400px; background: #000; border-top: 1px solid #222; display: flex; justify-content: space-around; align-items: center; padding: 8px 0; height: 55px; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #aaa; font-size: 10px; gap: 3px; cursor: pointer; }
+        .nav-icon { font-size: 22px; }
+        .plus-btn { width: 45px; height: 45px; background: #ff4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 28px; color: white; box-shadow: 0 3px 15px rgba(255,68,68,0.5); border: none; }
+        .upload-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 50; display: none; align-items: center; justify-content: center; }
+        .upload-overlay.show { display: flex; }
+        .upload-box { background: #1a1a1a; padding: 20px; border-radius: 20px; border: 2px solid #ff4444; width: 90%; max-width: 350px; }
+        .upload-box h3 { color: #ff4444; text-align: center; }
+        .upload-box input[type="file"] { width: 100%; padding: 12px; margin: 10px 0; background: #0a0a0a; color: white; border-radius: 10px; border: 1px dashed #ff4444; }
+        .upload-box input[type="text"], .upload-box textarea { width: 100%; padding: 10px; margin: 8px 0; border-radius: 10px; border: 1px solid #333; background: #0a0a0a; color: white; }
+        .upload-box button { width: 100%; padding: 12px; background: #ff4444; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .upload-box .close-btn { background: #333; }
+        video { width: 100%; max-height: 60vh; border-radius: 10px; background: #000; }
+        .video-info { color: white; padding: 10px; text-align: left; width: 100%; }
+    </style>
+</head>
+<body>
+<div class="phone">
+    <div class="video-container" id="videoContainer">
+        <div class="video-slide">
+            <div class="video-content">
+                <span class="emoji-big">🍅</span>
+                <h2>TikTok Tomat</h2>
+                <p style="color:#ccc;">Загрузи видео через +</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div class="nav-item"><span class="nav-icon">🏠</span><span>Главная</span></div>
+        <button class="plus-btn" onclick="document.getElementById('uploadOverlay').classList.add('show')">+</button>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Профиль</span></div>
+    </div>
+    <div class="upload-overlay" id="uploadOverlay">
+        <div class="upload-box">
+            <h3>🎬 Загрузить видео</h3>
+            <input type="file" id="videoFile" accept="video/*" onchange="previewVideo()">
+            <video id="videoPreview" controls style="display:none;"></video>
+            <input type="text" id="videoTitle" placeholder="Название">
+            <textarea id="videoDesc" placeholder="Описание..."></textarea>
+            <button onclick="uploadVideo()">✅ Опубликовать</button>
+            <button class="close-btn" onclick="document.getElementById('uploadOverlay').classList.remove('show')">Отмена</button>
+        </div>
+    </div>
+</div>
+<script>
+let videos = [];
+function previewVideo() {
+    let file = document.getElementById('videoFile').files[0];
+    if (file) {
+        let preview = document.getElementById('videoPreview');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    }
+}
+function uploadVideo() {
+    let file = document.getElementById('videoFile').files[0];
+    let title = document.getElementById('videoTitle').value || 'Моё видео';
+    let desc = document.getElementById('videoDesc').value || '';
+    if (!file) { alert('Выбери видео!'); return; }
+    let url = URL.createObjectURL(file);
+    videos.unshift({ id: Date.now(), url: url, title: title, desc: desc, date: new Date().toLocaleString() });
+    renderVideos();
+    document.getElementById('uploadOverlay').classList.remove('show');
+    document.getElementById('videoFile').value = '';
+    document.getElementById('videoTitle').value = '';
+    document.getElementById('videoDesc').value = '';
+    document.getElementById('videoPreview').style.display = 'none';
+    alert('✅ Видео загружено!');
+}
+function renderVideos() {
+    let container = document.getElementById('videoContainer');
+    container.innerHTML = '';
+    if (videos.length === 0) {
+        container.innerHTML = '<div class="video-slide"><div class="video-content"><span class="emoji-big">🍅</span><h2>TikTok Tomat</h2><p style="color:#ccc;">Загрузи видео через +</p></div></div>';
+        return;
+    }
+    videos.forEach(v => {
+        let slide = document.createElement('div');
+        slide.className = 'video-slide';
+        slide.innerHTML = '<video controls src="'+v.url+'"></video><div class="video-info"><b>'+v.title+'</b><br>'+v.desc+'<br><small>'+v.date+'</small></div>';
+        container.appendChild(slide);
+    });
+}
+renderVideos();
+</script>
+</body>
+</html>
